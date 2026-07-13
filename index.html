@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>José Augusto | Desenvolvedor Júnior</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h2 class="logo">JA.</h2>
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre Mim</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Alternar Tema" class="btn-icon">
+                <i class="ph ph-sun" id="theme-icon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="hero-content fade-in-element">
+            <div class="avatar-container">
+                <div class="avatar">
+                    <img src="062337.jpg" alt="Foto de Perfil do José Augusto" class="avatar-img">
+                </div>
+            </div>
+            <h1 class="typing-effect">Olá, eu sou José Augusto 👋</h1>
+            <h3 class="gradient-text">Desenvolvedor Júnior | Suporte Técnico | Analista</h3>
+            <p class="hero-description">Desenvolvedor Júnior com foco em Python, automação web e front-end, e experiência em suporte técnico e infraestrutura de TI.</p>
+            <div class="hero-buttons">
+                <a href="Jose_Augusto_Curriculo.pdf" target="_blank" class="btn btn-primary">
+                    <i class="ph ph-download-simple"></i> Baixar Currículo
+                </a>
+                <a href="https://github.com/JoseAugusto001" target="_blank" class="btn btn-secondary">
+                    <i class="ph ph-github-logo"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/joseaom19/" target="_blank" class="btn btn-secondary">
+                    <i class="ph ph-linkedin-logo"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="container reveal-section">
+        <h2 class="section-title">Sobre Mim</h2>
+        <div class="card about-card">
+            <p>Sou o José Augusto, graduado em Análise e Desenvolvimento de Sistemas. Comecei na área de infraestrutura e suporte técnico, o que me deu uma boa base sobre como os sistemas funcionam por dentro, do hardware às redes. Foi resolvendo problemas do dia a dia que comecei a programar.</p>
+            <p>Desde então venho trabalhando com automações e scripts em Python para reduzir tarefas repetitivas, e também com front-end usando HTML, CSS, JavaScript e Vue.js. Estou sempre aprendendo algo novo e agora procuro uma oportunidade como <strong>Desenvolvedor Júnior</strong> para crescer na área.</p>
+        </div>
+    </section>
+
+    <section id="projetos" class="container reveal-section">
+        <h2 class="section-title">Projetos de Destaque</h2>
+        <div class="cards-grid">
+            
+            <div class="card project-card">
+                <div class="card-icon"><i class="ph ph-robot"></i></div>
+                <h3>Automação Bancária</h3>
+                <p>Automação criada para consulta de margem e simulações no fluxo CLT. O robô acessa sistemas, extrai dados de clientes em massa e devolve os resultados organizados, poupando horas de trabalho manual.</p>
+                <div class="tags">
+                    <span>Python</span> <span>Playwright</span> <span>Pandas</span>
+                </div>
+                <a href="https://github.com/JoseAugusto001/Automa-oDeMargem" target="_blank" class="btn btn-outline">Ver Código</a>
+            </div>
+
+            <div class="card project-card">
+                <div class="card-icon"><i class="ph ph-books"></i></div>
+                <h3>BiblioVue</h3>
+                <p>Sistema de biblioteca com cadastro de livros, controle de empréstimos e devoluções, busca em tempo real e salvamento local dos dados. Desenvolvido com Vue.js.</p>
+                <div class="tags">
+                    <span>Vue.js</span> <span>JavaScript</span> <span>LocalStorage</span>
+                </div>
+                <div class="card-actions">
+                    <a href="https://joseaugusto001.github.io/bibliovue/" target="_blank" class="btn btn-outline">Ver Demo</a>
+                    <a href="https://github.com/JoseAugusto001/bibliovue" target="_blank" class="btn btn-outline">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card project-card">
+                <div class="card-icon"><i class="ph ph-hard-drives"></i></div>
+                <h3>Servidor Minecraft</h3>
+                <p>Desenvolvimento e gestão lógica para um servidor online multijogador. Criação de sistemas interativos, gerenciamento de banco de dados e resolução de bugs em tempo real para melhorar a experiência da comunidade.</p>
+                <div class="tags">
+                    <span>Lógica de Programação</span> <span>Sistemas Web</span>
+                </div>
+                <a href="https://github.com/JoseAugusto001" target="_blank" class="btn btn-outline">Ver no GitHub</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="habilidades" class="container reveal-section">
+        <h2 class="section-title">Minhas Habilidades</h2>
+        <div class="skills-grid">
+            <div class="skill-item"><i class="ph ph-file-py"></i> Python</div>
+            <div class="skill-item"><i class="ph ph-file-js"></i> JavaScript</div>
+            <div class="skill-item"><i class="ph ph-file-html"></i> HTML5</div>
+            <div class="skill-item"><i class="ph ph-file-css"></i> CSS3</div>
+            <div class="skill-item"><i class="ph ph-brackets-angle"></i> Vue.js</div>
+            <div class="skill-item"><i class="ph ph-git-branch"></i> Git / GitHub</div>
+            <div class="skill-item"><i class="ph ph-robot"></i> Automação Web</div>
+            <div class="skill-item"><i class="ph ph-plugs-connected"></i> APIs REST</div>
+            <div class="skill-item"><i class="ph ph-terminal-window"></i> Linux</div>
+            <div class="skill-item"><i class="ph ph-cpu"></i> Hardware</div>
+            <div class="skill-item"><i class="ph ph-magnifying-glass"></i> Análise / QA</div>
+            <div class="skill-item"><i class="ph ph-translate"></i> Inglês Fluente</div>
+        </div>
+    </section>
+
+    <section id="contato" class="container text-center reveal-section">
+        <h2 class="section-title">Vamos conversar?</h2>
+        <p class="contact-text">Estou em busca da minha próxima oportunidade como Desenvolvedor Júnior. Se quiser conversar sobre uma vaga ou um projeto, é só me chamar.</p>
+        <br>
+        <a href="mailto:josea8197@gmail.com" class="btn btn-primary pulse-effect">
+            <i class="ph ph-envelope-simple"></i> Enviar E-mail
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 José Augusto. Desenvolvido do zero com HTML, CSS e JavaScript.</p>
+        <p><a href="https://github.com/JoseAugusto001/JoseAugusto001.github.io" target="_blank" class="footer-link"><i class="ph ph-github-logo"></i> Ver o código deste site no GitHub</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

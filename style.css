@@ -1,0 +1,555 @@
+/* ==========================================================================
+   Design Tokens (Variáveis CSS)
+   ========================================================================== */
+:root {
+    --bg-color: #0f172a;        /* Fundo principal escuro (Slate 900) */
+    --surface-color: #1e293b;   /* Fundo secundário para cards (Slate 800) */
+    --surface-hover: #334155;   /* Fundo do card ao passar o mouse */
+    --text-primary: #f8fafc;    /* Texto principal claro */
+    --text-secondary: #94a3b8;  /* Texto secundário (cinza azulado) */
+    
+    /* Cores de Destaque (Accent Colors) - Mantendo o azul e misturando com roxo */
+    --primary-accent: #3b82f6;  /* Azul base */
+    --secondary-accent: #8b5cf6; /* Roxo para gradientes */
+    --primary-gradient: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+    
+    /* Outras variáveis */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(15, 23, 42, 0.75); /* Fundo transparente do header escuro */
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 8px 30px rgba(59, 130, 246, 0.3); /* Sombra brilhante azul */
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+    --bg-color: #f8fafc;        /* Fundo principal claro */
+    --surface-color: #ffffff;   /* Fundo secundário para cards */
+    --surface-hover: #f1f5f9;
+    --text-primary: #0f172a;    /* Texto escuro */
+    --text-secondary: #475569;
+    
+    --border-color: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.85); /* Fundo transparente do header claro */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 8px 30px rgba(59, 130, 246, 0.25);
+}
+
+/* ==========================================================================
+   Configurações Globais
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Ajuste crucial para que o header fixo não cubra o título da seção ao clicar no menu */
+    scroll-padding-top: 100px; 
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--surface-hover);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-accent);
+}
+
+/* ==========================================================================
+   Header e Navegação
+   ========================================================================== */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* Efeito Glassmorphism: Fundo semi-transparente com blur atrás */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.4s ease;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 20px;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.8rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 1.05rem;
+    position: relative; /* Necessário para a animação de sublinhado */
+    transition: var(--transition-smooth);
+}
+
+.nav-links a:hover {
+    color: var(--primary-accent);
+}
+
+/* Animação do Sublinhado nos Links */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0; /* Começa com largura zero */
+    height: 2px;
+    background: var(--primary-gradient);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%; /* Expande o sublinhado no hover */
+}
+
+/* Botão de Tema */
+.btn-icon {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+}
+.btn-icon:hover {
+    background: var(--surface-color);
+    color: var(--primary-accent);
+    transform: rotate(15deg);
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    /* Fundo escuro com uma aura radial azul para destaque visual (Mesh Gradient) */
+    background: radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+}
+
+.hero-content {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Avatar Placeholder */
+.avatar-container {
+    margin-bottom: 25px;
+}
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--surface-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--primary-accent);
+    border: 3px solid var(--border-color);
+    box-shadow: var(--shadow-glow);
+    transition: transform 0.4s ease;
+}
+.avatar:hover {
+    transform: scale(1.05);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.hero-section h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem); /* Tipografia Fluida que adapta ao tamanho da tela */
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.gradient-text {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 500;
+    margin-bottom: 25px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Botões */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--surface-color);
+    border-color: var(--primary-accent);
+    color: var(--primary-accent);
+    transform: translateY(-3px);
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+    padding: 8px 20px;
+    border: 2px solid var(--primary-accent);
+    color: var(--text-primary);
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-outline:hover {
+    background: var(--primary-accent);
+    color: white;
+}
+
+/* Grupo de botões dentro dos cards de projeto */
+.card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* ==========================================================================
+   Seções Gerais
+   ========================================================================== */
+.container {
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    text-align: center;
+    color: var(--text-primary);
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin: 0 auto 40px auto;
+}
+
+/* Detalhe embaixo do título */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ==========================================================================
+   Cards (Sobre e Projetos)
+   ========================================================================== */
+.card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+}
+
+.about-card {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.about-card p {
+    margin-bottom: 15px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Efeito de Flutuação e Glow no Hover do Card */
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--primary-accent);
+    margin-bottom: 20px;
+    background: rgba(59, 130, 246, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.project-card p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    flex-grow: 1; /* Faz o botão ficar alinhado no final do card */
+}
+
+/* Tags de Tecnologias em Projetos */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tags span {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--primary-accent);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Habilidades
+   ========================================================================== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.skill-item {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+}
+
+.skill-item i {
+    font-size: 1.8rem;
+    color: var(--primary-accent);
+}
+
+.skill-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-md);
+    background: var(--surface-hover);
+}
+
+/* ==========================================================================
+   Contato e Footer
+   ========================================================================== */
+.contact-text {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    margin-top: 80px;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: var(--primary-accent);
+}
+
+/* ==========================================================================
+   Animações Globais e Classes de Utilitários
+   ========================================================================== */
+
+/* Classes para o IntersectionObserver (Fade In on Scroll) */
+.reveal-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animação de entrada inicial para o Hero */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-element {
+    animation: fadeInUp 1s ease forwards;
+}
+
+/* Animação pulsante para o botão principal de contato */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+.pulse-effect:hover {
+    animation: pulse 1.5s infinite;
+}
+
+/* ==========================================================================
+   Responsividade
+   ========================================================================== */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+    .cards-grid {
+        grid-template-columns: 1fr; /* 1 coluna no celular */
+    }
+}

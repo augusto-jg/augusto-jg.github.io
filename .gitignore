@@ -1,0 +1,15 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Logs e temporários
+*.log
+*.tmp
+
+# Observação: a foto de perfil (20200731_062337.jpg) e o currículo
+# (Jose_Augusto_Curriculo.pdf) DEVEM ser versionados — o site publicado
+# precisa deles para exibir o avatar e o botão "Baixar Currículo".
