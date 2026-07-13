@@ -1,6 +1,6 @@
 Site pessoal desenvolvido do zero com **HTML, CSS e JavaScript puro** (sem frameworks), com tema claro/escuro, animações no scroll e design responsivo.
 
- **Link:** augusto-jg.github.io/
+ **Link:** https://augusto-jg.github.io/
 
 
 ## Contato
