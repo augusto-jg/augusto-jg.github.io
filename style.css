@@ -142,6 +142,20 @@ nav {
     width: 100%; /* Expande o sublinhado no hover */
 }
 
+/* Seletor de Idioma (PT / EN) */
+.lang-switch {
+    border: 1.5px solid var(--border-color);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+}
+.lang-switch:hover {
+    border-color: var(--primary-accent);
+    background: rgba(59, 130, 246, 0.1);
+}
+
 /* Botão de Tema */
 .btn-icon {
     background: transparent;
