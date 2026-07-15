@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>José Augusto | Junior Developer</title>
+
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h2 class="logo">JA.</h2>
+            <ul class="nav-links">
+                <li><a href="#sobre">About</a></li>
+                <li><a href="#projetos">Projects</a></li>
+                <li><a href="#habilidades">Skills</a></li>
+                <li><a href="#contato">Contact</a></li>
+                <li><a href="index.html" class="lang-switch">PT</a></li>
+            </ul>
+            <button id="theme-toggle" aria-label="Toggle Theme" class="btn-icon">
+                <i class="ph ph-sun" id="theme-icon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="hero-content fade-in-element">
+            <div class="avatar-container">
+                <div class="avatar">
+                    <img src="062337.jpg" alt="José Augusto's profile picture" class="avatar-img">
+                </div>
+            </div>
+            <h1 class="typing-effect">Hi, I'm José Augusto 👋</h1>
+            <h3 class="gradient-text">Junior Developer | Technical Support | Analyst</h3>
+            <p class="hero-description">Junior Developer focused on Python, web automation and front-end, with experience in technical support and IT infrastructure.</p>
+            <div class="hero-buttons">
+                <a href="Jose_Augusto_Resume.pdf" target="_blank" class="btn btn-primary">
+                    <i class="ph ph-download-simple"></i> Download Resume
+                </a>
+                <a href="https://github.com/augusto-jg" target="_blank" class="btn btn-secondary">
+                    <i class="ph ph-github-logo"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/joseaom19/" target="_blank" class="btn btn-secondary">
+                    <i class="ph ph-linkedin-logo"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="container reveal-section">
+        <h2 class="section-title">About Me</h2>
+        <div class="card about-card">
+            <p>I'm José Augusto, graduated in Systems Analysis and Development. I started out in infrastructure and technical support, which gave me a solid understanding of how systems work under the hood, from hardware to networks. It was by solving everyday problems that I began to program.</p>
+            <p>Since then I've been working with automations and scripts in Python to cut down on repetitive tasks, and also with front-end using HTML, CSS, JavaScript and Vue.js. I'm always learning something new, and I'm now looking for an opportunity as a <strong>Junior Developer</strong> to grow in the field.</p>
+        </div>
+    </section>
+
+    <section id="projetos" class="container reveal-section">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="cards-grid">
+
+            <div class="card project-card">
+                <div class="card-icon"><i class="ph ph-robot"></i></div>
+                <h3>Bank Automation</h3>
+                <p>Automation built to query margins and run simulations in the CLT payroll-loan workflow. It accesses systems, extracts client data in bulk and returns organized results, saving hours of manual work.</p>
+                <div class="tags">
+                    <span>Python</span> <span>Playwright</span> <span>Pandas</span>
+                </div>
+                <a href="https://github.com/augusto-jg/Automa-oDeMargem" target="_blank" class="btn btn-outline">View Code</a>
+            </div>
+
+            <div class="card project-card">
+                <div class="card-icon"><i class="ph ph-books"></i></div>
+                <h3>BiblioVue</h3>
+                <p>Library system with book registration, loan and return control, real-time search and local data saving. Built with Vue.js.</p>
+                <div class="tags">
+                    <span>Vue.js</span> <span>JavaScript</span> <span>LocalStorage</span>
+                </div>
+                <div class="card-actions">
+                    <a href="https://augusto-jg.github.io/BiblioVue/" target="_blank" class="btn btn-outline">View Demo</a>
+                    <a href="https://github.com/augusto-jg/BiblioVue" target="_blank" class="btn btn-outline">View Code</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="habilidades" class="container reveal-section">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item"><i class="ph ph-file-py"></i> Python</div>
+            <div class="skill-item"><i class="ph ph-file-js"></i> JavaScript</div>
+            <div class="skill-item"><i class="ph ph-file-html"></i> HTML5</div>
+            <div class="skill-item"><i class="ph ph-file-css"></i> CSS3</div>
+            <div class="skill-item"><i class="ph ph-brackets-angle"></i> Vue.js</div>
+            <div class="skill-item"><i class="ph ph-git-branch"></i> Git / GitHub</div>
+            <div class="skill-item"><i class="ph ph-robot"></i> Web Automation</div>
+            <div class="skill-item"><i class="ph ph-plugs-connected"></i> REST APIs</div>
+            <div class="skill-item"><i class="ph ph-terminal-window"></i> Linux</div>
+            <div class="skill-item"><i class="ph ph-cpu"></i> Hardware</div>
+            <div class="skill-item"><i class="ph ph-magnifying-glass"></i> Analysis / QA</div>
+            <div class="skill-item"><i class="ph ph-translate"></i> Fluent English</div>
+        </div>
+    </section>
+
+    <section id="contato" class="container text-center reveal-section">
+        <h2 class="section-title">Let's talk?</h2>
+        <p class="contact-text">I'm looking for my next opportunity as a Junior Developer. If you'd like to talk about a role or a project, just reach out.</p>
+        <br>
+        <a href="mailto:josea8197@gmail.com" class="btn btn-primary pulse-effect">
+            <i class="ph ph-envelope-simple"></i> Send Email
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 José Augusto. Built from scratch with HTML, CSS and JavaScript.</p>
+        <p><a href="https://github.com/augusto-jg/augusto-jg.github.io" target="_blank" class="footer-link"><i class="ph ph-github-logo"></i> View this site's code on GitHub</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

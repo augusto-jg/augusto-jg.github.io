@@ -10,6 +10,9 @@ Thumbs.db
 *.log
 *.tmp
 
+# Scripts de build (geram arquivos, mas não fazem parte do site publicado)
+make_resume_en.py
+
 # Observação: a foto de perfil (20200731_062337.jpg) e o currículo
 # (Jose_Augusto_Curriculo.pdf) DEVEM ser versionados — o site publicado
 # precisa deles para exibir o avatar e o botão "Baixar Currículo".
