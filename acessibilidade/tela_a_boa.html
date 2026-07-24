@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar na sua conta</title>
+  <!--
+    =====================================================================
+    TELA "BOA" / "DEPOIS" (ACESSÍVEL) - TCC Acessibilidade Cognitiva
+    ---------------------------------------------------------------------
+    Versão adaptada às diretrizes de design inclusivo (WCAG 2.1) E
+    enriquecida com um Assistente de IA POSITIVO, que apoia o usuário
+    neurodivergente sem poluir a interface:
+      - Leitura em tempo real (voz)      -> Web Speech API (pt-BR)
+      - Legendas                         -> texto grande do que é lido
+      - Fonte legível / texto maior      -> tipografia adaptável
+      - Instruções em tempo real         -> dica falada/escrita por campo
+    O Assistente é, ele próprio, acessível: botões rotulados, aria-pressed,
+    foco visível, alto contraste e respeito a prefers-reduced-motion.
+    =====================================================================
+  -->
+  <style>
+    :root {
+      --cor-fundo: #f4f6f8;
+      --cor-superficie: #ffffff;
+      --cor-texto: #1a1a1a;
+      --cor-texto-suave: #4a4a4a;
+      --cor-primaria: #1d4ed8;
+      --cor-primaria-escura: #1e40af;
+      --cor-borda: #c7ccd1;
+      --cor-borda-foco: #1d4ed8;
+      --cor-erro: #b00020;
+      --cor-sucesso: #1b7a3d;
+      --raio: 10px;
+      --sombra: 0 2px 12px rgba(0, 0, 0, 0.08);
+      --fonte-base: 18px;     /* ajustável pelo assistente */
+      --familia: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 24px 120px;
+      font-family: var(--familia);
+      font-size: var(--fonte-base);
+      line-height: 1.6;
+      color: var(--cor-texto);
+      background-color: var(--cor-fundo);
+    }
+
+    /* Modo "fonte legível" ativado pelo assistente */
+    body.fonte-legivel {
+      --fonte-base: 21px;
+      --familia: "Verdana", "Segoe UI", system-ui, sans-serif;
+      letter-spacing: .3px;
+      line-height: 1.8;
+    }
+
+    .cartao {
+      width: 100%;
+      max-width: 440px;
+      background-color: var(--cor-superficie);
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+      padding: 28px 32px 32px;
+    }
+
+    h1 { margin: 0 0 8px; font-size: 1.6rem; }
+    .subtitulo { margin: 0 0 20px; color: var(--cor-texto-suave); text-align: left; font-size: 1rem; }
+
+    /* ---------- Barra do Assistente de IA ---------- */
+    .assistente {
+      border: 1px solid #cdd9ff;
+      background: #eef3ff;
+      border-radius: var(--raio);
+      padding: 12px;
+      margin-bottom: 22px;
+    }
+    .assistente .titulo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .95rem; font-weight: 700; color: var(--cor-primaria-escura);
+      margin-bottom: 10px;
+    }
+    .assistente .titulo .selo {
+      background: var(--cor-primaria); color: #fff; font-size: .7rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 20px; letter-spacing: .5px;
+    }
+    .ferramentas { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ferramentas button {
+      flex: 1 1 auto;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      min-height: 44px; padding: 8px 10px;
+      font-family: inherit; font-size: .9rem; font-weight: 600;
+      color: var(--cor-primaria-escura);
+      background: #fff; border: 2px solid #b9caff; border-radius: 8px; cursor: pointer;
+    }
+    .ferramentas button:hover { background: #e3ebff; }
+    /* Estado "ligado" sinalizado por cor E por texto (não só cor) */
+    .ferramentas button[aria-pressed="true"] {
+      background: var(--cor-primaria); color: #fff; border-color: var(--cor-primaria);
+    }
+    .ferramentas button .estado { font-weight: 700; font-size: .8rem; opacity: .9; }
+
+    /* ---------- Campos ---------- */
+    .campo { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 6px; font-weight: 600; }
+    .dica { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--cor-texto-suave); font-weight: 400; }
+
+    input[type="email"], input[type="text"], input[type="password"] {
+      width: 100%; padding: 14px; font-size: 1rem; color: var(--cor-texto);
+      background-color: #fff; border: 2px solid var(--cor-borda); border-radius: var(--raio);
+    }
+
+    input:focus, button:focus, .link-senha:focus {
+      outline: 3px solid var(--cor-borda-foco); outline-offset: 2px; border-color: var(--cor-borda-foco);
+    }
+
+    .grupo-senha { position: relative; }
+    .mostrar-senha {
+      margin-top: 8px; display: flex; align-items: center; gap: 8px;
+      font-size: 0.95rem; color: var(--cor-texto-suave); cursor: pointer; font-weight: 400;
+    }
+    .mostrar-senha input { width: 20px; height: 20px; }
+
+    button.entrar {
+      width: 100%; padding: 16px; margin-top: 8px;
+      font-size: 1.1rem; font-weight: 600; color: #fff;
+      background-color: var(--cor-primaria); border: none; border-radius: var(--raio);
+      cursor: pointer; min-height: 52px;
+    }
+    button.entrar:hover { background-color: var(--cor-primaria-escura); }
+
+    .mensagem-erro { display: none; margin-top: 6px; color: var(--cor-erro); font-size: 0.95rem; font-weight: 600; }
+    .campo.com-erro input { border-color: var(--cor-erro); }
+    .campo.com-erro .mensagem-erro { display: block; }
+
+    /* Área de instrução em tempo real do assistente */
+    .instrucao {
+      display: none; align-items: flex-start; gap: 8px;
+      margin-top: 6px; padding: 8px 10px;
+      background: #fff7e6; border: 1px solid #f0d28a; border-left: 4px solid #e6a200;
+      border-radius: 8px; font-size: .9rem; color: #6b4e00;
+    }
+    .instrucao.visivel { display: flex; }
+
+    .aviso-sucesso {
+      display: none; margin-bottom: 20px; padding: 14px; border-radius: var(--raio);
+      background-color: #e6f4ea; border: 1px solid var(--cor-sucesso); color: var(--cor-sucesso); font-weight: 600;
+    }
+
+    .rodape { margin-top: 22px; text-align: center; font-size: 0.95rem; color: var(--cor-texto-suave); }
+    .rodape a, .link-senha { color: var(--cor-primaria); font-weight: 600; }
+
+    /* ---------- Legenda (caption) do que está sendo lido ---------- */
+    #legenda {
+      position: fixed; left: 50%; transform: translateX(-50%); bottom: 24px; z-index: 50;
+      max-width: 760px; width: 92%;
+      background: #0f1216; color: #fff; font-size: 1.15rem; line-height: 1.45; text-align: center;
+      padding: 14px 20px; border-radius: 12px; display: none; box-shadow: 0 8px 30px rgba(0,0,0,.4);
+    }
+    #legenda.ativa { display: block; }
+    #legenda .rotulo { display: block; font-size: .72rem; letter-spacing: 1px; color: #9fc0ff; text-transform: uppercase; margin-bottom: 4px; }
+
+    /* Texto só para leitores de tela */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="cartao">
+    <h1 data-leia>Entrar na sua conta</h1>
+    <p class="subtitulo" data-leia>Digite seu e-mail e sua senha para acessar o sistema.</p>
+
+    <!-- ============ ASSISTENTE DE ACESSIBILIDADE (IA) ============ -->
+    <section class="assistente" aria-label="Assistente de acessibilidade">
+      <div class="titulo">
+        <span class="selo" aria-hidden="true">IA</span>
+        Assistente de acessibilidade
+      </div>
+      <div class="ferramentas" role="group" aria-label="Recursos de apoio">
+        <button type="button" id="btn-ouvir" aria-pressed="false">
+          🔊 Ouvir <span class="estado" aria-hidden="true">Desligado</span>
+        </button>
+        <button type="button" id="btn-legenda" aria-pressed="false">
+          💬 Legendas <span class="estado" aria-hidden="true">Desligado</span>
+        </button>
+        <button type="button" id="btn-fonte" aria-pressed="false">
+          🔤 Fonte legível <span class="estado" aria-hidden="true">Desligado</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="aviso-sucesso" id="aviso-sucesso" role="status" aria-live="polite">
+      Tudo certo! Entrando na sua conta...
+    </div>
+
+    <form id="form-login" novalidate>
+      <!-- E-mail -->
+      <div class="campo" id="campo-email">
+        <label for="email" data-leia>E-mail</label>
+        <span class="dica" id="dica-email" data-leia>Exemplo: nome@email.com</span>
+        <input type="email" id="email" name="email" autocomplete="email"
+               aria-describedby="dica-email instrucao-email erro-email" aria-required="true" required
+               data-instrucao="Digite o e-mail que você usou para criar a sua conta.">
+        <div class="instrucao" id="instrucao-email"><span aria-hidden="true">💡</span><span class="instrucao-txt"></span></div>
+        <span class="mensagem-erro" id="erro-email">Por favor, digite um e-mail válido.</span>
+      </div>
+
+      <!-- Senha -->
+      <div class="campo" id="campo-senha">
+        <label for="senha" data-leia>Senha</label>
+        <div class="grupo-senha">
+          <input type="password" id="senha" name="senha" autocomplete="current-password"
+                 aria-describedby="instrucao-senha erro-senha" aria-required="true" required
+                 data-instrucao="Digite a sua senha. Use o botão 'Mostrar senha' se quiser conferir o que digitou.">
+        </div>
+        <label class="mostrar-senha">
+          <input type="checkbox" id="mostrar-senha"> Mostrar senha
+        </label>
+        <div class="instrucao" id="instrucao-senha"><span aria-hidden="true">💡</span><span class="instrucao-txt"></span></div>
+        <span class="mensagem-erro" id="erro-senha">Por favor, digite sua senha.</span>
+      </div>
+
+      <button type="submit" class="entrar" data-leia>Entrar</button>
+    </form>
+
+    <p class="rodape">
+      <a href="#" class="link-senha" data-leia>Esqueci minha senha</a>
+    </p>
+  </main>
+
+  <!-- Legenda do que está sendo lido -->
+  <div id="legenda" role="status" aria-live="polite">
+    <span class="rotulo">Lendo agora</span>
+    <span id="legenda-texto">—</span>
+  </div>
+
+  <!-- Região para anúncios do assistente a leitores de tela -->
+  <div class="sr-only" id="anuncio" role="status" aria-live="polite"></div>
+
+  <script>
+  /* =====================================================================
+     ASSISTENTE DE ACESSIBILIDADE (IA) — versão "boa"
+     ---------------------------------------------------------------------
+     Apoio POSITIVO e opcional, totalmente acessível. A leitura em voz usa
+     a Web Speech API (SpeechSynthesis) em pt-BR. As instruções em tempo
+     real simulam a saída de um LLM guiado por Engenharia de Prompts:
+       "Você é um assistente de acessibilidade. Para o campo a seguir,
+        gere uma instrução curta, em voz ativa e linguagem simples, que
+        oriente o usuário a preenchê-lo. Campo: <...>"
+     ===================================================================== */
+  (function(){
+    const synth = window.speechSynthesis;
+    const body  = document.body;
+
+    const btnOuvir   = document.getElementById('btn-ouvir');
+    const btnLegenda = document.getElementById('btn-legenda');
+    const btnFonte   = document.getElementById('btn-fonte');
+
+    const legenda    = document.getElementById('legenda');
+    const legTexto   = document.getElementById('legenda-texto');
+    const anuncio    = document.getElementById('anuncio');
+
+    // --- util: alterna um botão de recurso (atualiza aria-pressed + rótulo) ---
+    function alternar(btn){
+      const ligado = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', ligado);
+      btn.querySelector('.estado').textContent = ligado ? 'Ligado' : 'Desligado';
+      return ligado;
+    }
+    const estaLigado = btn => btn.getAttribute('aria-pressed') === 'true';
+
+    // --- voz ---
+    function falar(txt){
+      if(!estaLigado(btnOuvir) || !synth) return;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(txt);
+      u.lang = 'pt-BR'; u.rate = 0.97;
+      synth.speak(u);
+    }
+
+    // --- legenda ---
+    function mostrarLegenda(txt){
+      if(!estaLigado(btnLegenda)){ legenda.classList.remove('ativa'); return; }
+      legTexto.textContent = txt;
+      legenda.classList.add('ativa');
+    }
+
+    // ===== 1) OUVIR (leitura em tempo real) =====
+    btnOuvir.addEventListener('click', ()=>{
+      const ligado = alternar(btnOuvir);
+      if(ligado){
+        anuncio.textContent = 'Leitura em voz alta ligada.';
+        falar('Leitura em voz alta ligada. Passe o mouse ou use o teclado nos campos para ouvir as instruções.');
+      } else {
+        synth && synth.cancel();
+        anuncio.textContent = 'Leitura em voz alta desligada.';
+      }
+    });
+
+    // ===== 2) LEGENDAS =====
+    btnLegenda.addEventListener('click', ()=>{
+      const ligado = alternar(btnLegenda);
+      anuncio.textContent = ligado ? 'Legendas ligadas.' : 'Legendas desligadas.';
+      if(ligado) mostrarLegenda('As legendas mostram aqui o texto que está sendo lido.');
+      else legenda.classList.remove('ativa');
+    });
+
+    // ===== 3) FONTE LEGÍVEL (tipografia adaptável) =====
+    btnFonte.addEventListener('click', ()=>{
+      const ligado = alternar(btnFonte);
+      body.classList.toggle('fonte-legivel', ligado);
+      anuncio.textContent = ligado ? 'Fonte legível e texto maior ligados.' : 'Fonte padrão restaurada.';
+    });
+
+    // ===== Leitura ao apontar/focar (só quando "Ouvir" ou "Legendas" ligados) =====
+    let ultimo = null;
+    function aoApontar(el){
+      if(!el || el === ultimo) return;
+      if(!estaLigado(btnOuvir) && !estaLigado(btnLegenda)) return;
+      const txt = (el.innerText || el.textContent || '').replace(/\s+/g,' ').trim();
+      if(!txt) return;
+      ultimo = el;
+      mostrarLegenda(txt);
+      falar(txt);
+    }
+    document.querySelectorAll('[data-leia]').forEach(el=>{
+      el.addEventListener('mouseover', ()=> aoApontar(el));
+      el.addEventListener('focus',    ()=> aoApontar(el), true);
+    });
+
+    // ===== 4) INSTRUÇÕES EM TEMPO REAL (ao focar cada campo) =====
+    document.querySelectorAll('input[data-instrucao]').forEach(input=>{
+      const campo = input.closest('.campo');
+      const caixa = campo.querySelector('.instrucao');
+      const txtEl = caixa.querySelector('.instrucao-txt');
+      const dica  = input.getAttribute('data-instrucao');
+
+      input.addEventListener('focus', ()=>{
+        txtEl.textContent = dica;        // mostra sempre (apoio visual constante)
+        caixa.classList.add('visivel');
+        mostrarLegenda(dica);
+        falar(dica);
+      });
+      input.addEventListener('blur', ()=> caixa.classList.remove('visivel'));
+    });
+
+    /* =====================================================================
+       Validação acessível do formulário (mantém o foco e anuncia erros)
+       ===================================================================== */
+    const form = document.getElementById('form-login');
+    const emailInput = document.getElementById('email');
+    const senhaInput = document.getElementById('senha');
+    const campoEmail = document.getElementById('campo-email');
+    const campoSenha = document.getElementById('campo-senha');
+    const avisoSucesso = document.getElementById('aviso-sucesso');
+    const mostrarSenha = document.getElementById('mostrar-senha');
+
+    mostrarSenha.addEventListener('change', function(){
+      senhaInput.type = this.checked ? 'text' : 'password';
+    });
+
+    const validarEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+    function definirErro(campo, input, erro){
+      campo.classList.toggle('com-erro', erro);
+      input.setAttribute('aria-invalid', erro ? 'true' : 'false');
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const emailInvalido = !validarEmail(emailInput.value);
+      const senhaVazia = senhaInput.value.trim() === '';
+      definirErro(campoEmail, emailInput, emailInvalido);
+      definirErro(campoSenha, senhaInput, senhaVazia);
+
+      if(emailInvalido){ emailInput.focus(); falar('Por favor, digite um e-mail válido.'); return; }
+      if(senhaVazia){ senhaInput.focus(); falar('Por favor, digite sua senha.'); return; }
+
+      avisoSucesso.style.display = 'block';
+      falar('Tudo certo! Entrando na sua conta.');
+    });
+
+    emailInput.addEventListener('input', ()=>{ if(validarEmail(emailInput.value)) definirErro(campoEmail, emailInput, false); });
+    senhaInput.addEventListener('input', ()=>{ if(senhaInput.value.trim() !== '') definirErro(campoSenha, senhaInput, false); });
+
+    /* MODO DEMONSTRAÇÃO para gerar as capturas do TCC:
+         #demo-leitura   -> Ouvir + Legendas, lendo o título
+         #demo-instrucao -> instrução em tempo real no campo de e-mail
+         #demo-fonte     -> fonte legível / texto maior ligado */
+    function demo(){
+      const h = location.hash;
+      if(!h.startsWith('#demo-')) return;
+      synth && synth.cancel(); // sem voz nas capturas
+      if(h === '#demo-leitura'){
+        btnOuvir.click(); btnLegenda.click();
+        legTexto.textContent = 'Entrar na sua conta';
+        legenda.classList.add('ativa');
+      }
+      if(h === '#demo-instrucao'){
+        btnLegenda.click();
+        const caixa = campoEmail.querySelector('.instrucao');
+        caixa.querySelector('.instrucao-txt').textContent = emailInput.getAttribute('data-instrucao');
+        caixa.classList.add('visivel');
+        legTexto.textContent = emailInput.getAttribute('data-instrucao');
+        legenda.classList.add('ativa');
+      }
+      if(h === '#demo-fonte'){
+        btnFonte.click();
+      }
+    }
+    window.addEventListener('load', ()=> setTimeout(demo, 150));
+    window.addEventListener('hashchange', demo);
+
+  })();
+  </script>
+</body>
+</html>

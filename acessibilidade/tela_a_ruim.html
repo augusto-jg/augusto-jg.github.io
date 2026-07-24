@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CentralCorp - Portal de Serviços Integrados</title>
+<!--
+  =======================================================================
+  TELA "RUIM" / "ANTES" (PROPOSITALMENTE INACESSÍVEL)
+  TCC - Acessibilidade Cognitiva em Desenvolvimento Web
+  -----------------------------------------------------------------------
+  Esta página simula um portal REAL e de aparência profissional, porém
+  cheio de barreiras de acessibilidade cognitiva, do tipo que se encontra
+  de fato em sites corporativos, bancários e governamentais.
+  É o ponto de partida ("antes") da análise comparativa. A versão
+  adaptada ("depois"), com diretrizes de design + Assistente de IA, está
+  no arquivo tela_a_boa.html.
+
+  Violações INTENCIONAIS de diretrizes (WCAG 2.1):
+    - 1.4.3  Contraste insuficiente (texto cinza-claro sobre branco)
+    - 1.3.1 / 3.3.2  Inputs sem <label>, apenas placeholder
+    - 2.2.2  Conteúdo em movimento sem botão de pausa (marquee/piscante)
+    - 1.4.4  Fontes minúsculas (10-12px), texto justificado denso
+    - 3.1.3 / 3.1.5  Jargão técnico, leitura em nível muito alto
+    - 2.4.x  Excesso de links e CTAs concorrentes, sem hierarquia clara
+    - 1.4.1  Informação transmitida só por cor
+    - 2.5.5  Alvos de toque pequenos
+  =======================================================================
+-->
+<style>
+  :root{
+    --azul:#0a3d62;
+    --cinza-texto:#9aa0a6;     /* baixo contraste proposital */
+    --cinza-claro:#c4c8cc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Times New Roman", Georgia, serif;  /* serifada e densa */
+    font-size:12px;            /* base minúscula */
+    color:#555;
+    background:#fff;
+    line-height:1.25;
+  }
+  a{color:#1155bb;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ---- Barra de aviso em movimento (sem pausa) ---- */
+  .marquee{
+    background:#e8262d;color:#fff;font-size:11px;font-weight:bold;
+    white-space:nowrap;overflow:hidden;padding:4px 0;
+  }
+  .marquee span{display:inline-block;padding-left:100%;animation:rola 14s linear infinite;}
+  @keyframes rola{from{transform:translateX(0);}to{transform:translateX(-100%);}}
+
+  /* ---- Cabeçalho poluído ---- */
+  header{border-bottom:3px solid var(--azul);padding:6px 14px;}
+  .topo{display:flex;justify-content:space-between;align-items:center;}
+  .logo{font-size:20px;font-weight:bold;color:var(--azul);letter-spacing:-1px;}
+  .logo small{font-weight:normal;color:#c0392b;}
+  .top-links{font-size:10px;color:#888;}
+  .top-links a{color:#777;margin-left:8px;}
+
+  nav.menu{background:var(--azul);}
+  nav.menu a{
+    color:#cdd6e0;font-size:11px;padding:6px 9px;display:inline-block;
+    border-right:1px solid #14507e;
+  }
+  nav.menu a:hover{background:#14507e;color:#fff;text-decoration:none;}
+
+  /* ---- Layout em colunas apertadas ---- */
+  .wrap{display:grid;grid-template-columns:1fr 300px;gap:14px;max-width:1100px;margin:10px auto;padding:0 14px;}
+
+  .hero{
+    background:linear-gradient(135deg,#0a3d62,#3c6382);
+    color:#aab8c2;padding:14px;border-radius:3px;position:relative;overflow:hidden;
+  }
+  .hero h1{margin:0 0 4px;font-size:17px;color:#dfe6ea;}
+  .hero p{margin:0;font-size:11px;text-align:justify;color:#8ea3b0;}
+  .hero .cta{margin-top:8px;}
+  .btn{
+    display:inline-block;font-size:10px;padding:4px 8px;border-radius:2px;
+    border:none;cursor:pointer;margin-right:5px;
+  }
+  .btn-vermelho{background:#e8262d;color:#fff;}
+  .btn-verde{background:#27ae60;color:#fff;}
+  .btn-laranja{background:#e67e22;color:#fff;}
+  .btn-cinza{background:#dfe3e6;color:#7a7f83;}
+
+  /* ---- Bloco de login (sem labels) ---- */
+  .login-card{border:1px solid #d0d4d8;border-radius:3px;padding:12px;margin-top:12px;background:#fbfbfb;}
+  .login-card h2{font-size:13px;color:var(--azul);margin:0 0 4px;}
+  .login-card p{font-size:11px;color:var(--cinza-texto);text-align:justify;margin:0 0 8px;}
+  .login-card input{
+    width:100%;font-size:11px;padding:5px;border:1px solid #ccc;border-radius:2px;margin-bottom:6px;
+    color:#666;
+  }
+  .login-card .linha{font-size:10px;color:#a7adb2;}
+
+  /* ---- Texto institucional denso ---- */
+  .conteudo h3{font-size:13px;color:var(--azul);border-bottom:1px solid #e3e6e8;padding-bottom:3px;}
+  .conteudo p{font-size:11.5px;text-align:justify;color:#6b7075;margin:6px 0;}
+
+  /* ---- Coluna lateral de promoções/ads ---- */
+  aside .promo{border:1px dashed #c9ad6a;background:#fffaf0;padding:8px;margin-bottom:10px;font-size:10px;color:#9c7b3f;text-align:center;}
+  aside .promo strong{display:block;font-size:12px;color:#b8860b;}
+  aside .box{border:1px solid #e0e0e0;padding:8px;margin-bottom:10px;font-size:10px;color:#8a8f93;}
+  aside .box h4{margin:0 0 4px;font-size:11px;color:#666;}
+
+  /* ---- Carrossel piscante ---- */
+  .blink{animation:pisca 1s steps(2,start) infinite;color:#e8262d;font-weight:bold;}
+  @keyframes pisca{to{visibility:hidden;}}
+
+  /* ---- Rodapé com muralha de links ---- */
+  footer{background:#2c3e50;color:#95a5a6;font-size:10px;margin-top:18px;padding:14px;}
+  footer .cols{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:1100px;margin:0 auto;}
+  footer a{color:#7f8c9a;display:block;padding:1px 0;}
+  footer h5{color:#bdc3c7;font-size:10px;margin:0 0 4px;text-transform:uppercase;}
+
+  /* ---- Cookie bar tampando conteúdo ---- */
+  .cookie{
+    position:fixed;bottom:0;left:0;right:0;background:#1c1c1c;color:#bbb;font-size:10px;
+    padding:8px 14px;display:flex;justify-content:space-between;align-items:center;z-index:50;
+  }
+  .cookie a{color:#6cf;}
+</style>
+</head>
+<body>
+
+  <!-- Barra de aviso em movimento contínuo, sem pausa (viola WCAG 2.2.2) -->
+  <div class="marquee">
+    <span>⚠ ATENÇÃO: Devido à instabilidade no datacenter, o handshake de autenticação pode apresentar latência. Recomenda-se limpar o cache do navegador e revalidar o token de sessão SSO antes de prosseguir. Promoção: contrate o Plano Premium e ganhe 3 meses de cashback! ⚠</span>
+  </div>
+
+  <header>
+    <div class="topo">
+      <div class="logo">Central<span style="color:#0a3d62">Corp</span> <small>Serviços Integrados</small></div>
+      <div class="top-links">
+        <a href="#">Acessibilidade</a>
+        <a href="#">Mapa do site</a>
+        <a href="#">Ouvidoria</a>
+        <a href="#">PT | EN | ES</a>
+        <a href="#">Alto contraste</a>
+        <a href="#">A- A+</a>
+      </div>
+    </div>
+    <nav class="menu">
+      <a href="#">Início</a><a href="#">Produtos</a><a href="#">Pessoa Física</a><a href="#">Pessoa Jurídica</a><a href="#">Investimentos</a><a href="#">Crédito</a><a href="#">Seguros</a><a href="#">Câmbio</a><a href="#">Consórcio</a><a href="#">Atendimento</a><a href="#">Sobre</a><a href="#">Imprensa</a><a href="#">Trabalhe Conosco</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <!-- COLUNA PRINCIPAL -->
+    <main>
+      <section class="hero">
+        <h1>Autenticação de Credenciais de Acesso ao Sistema Core</h1>
+        <p>Prezado utilizador, para a consecução do procedimento de autenticação, faz-se mister a inserção da sua identificação unívoca e da respectiva chave criptográfica previamente estipulada, viabilizando, deste modo, o estabelecimento do handshake junto ao servidor central de processamento transacional.</p>
+        <div class="cta">
+          <button class="btn btn-vermelho">Processar Autenticação no Banco de Dados</button>
+          <button class="btn btn-verde">Onboarding Digital</button>
+          <button class="btn btn-laranja">Recuperação de Credencial</button>
+          <button class="btn btn-cinza">FAQ</button>
+        </div>
+      </section>
+
+      <section class="login-card">
+        <h2>Área Restrita</h2>
+        <p>Insira a sua identificação e a chave de segurança escolhida previamente para prosseguir com o handshake no servidor central.</p>
+        <!-- Inputs SEM <label>, apenas placeholder (viola 1.3.1 / 3.3.2) -->
+        <input type="text" placeholder="Identificador / E-mail / CPF / Matrícula">
+        <input type="password" placeholder="Chave de segurança">
+        <div class="linha">
+          <input type="checkbox" style="width:auto"> Permanecer autenticado &nbsp;·&nbsp;
+          <a href="#">Esqueci minha credencial</a> &nbsp;·&nbsp;
+          <a href="#">Termos de uso e política de cookies</a>
+        </div>
+        <button class="btn btn-vermelho" style="margin-top:8px">Submeter</button>
+      </section>
+
+      <section class="conteudo">
+        <h3>Comunicado Institucional <span class="blink">NOVO</span></h3>
+        <p>Em conformidade com a reestruturação dos fluxos operacionais e a otimização dos pipelines de processamento assíncrono, informamos que a indisponibilidade programada da camada de middleware impactará marginalmente a latência das requisições autenticadas via protocolo OAuth, sendo recomendável aos stakeholders a revalidação periódica dos respectivos tokens de portador a fim de mitigar eventuais falhas de sincronização no barramento de serviços.</p>
+        <p>Ademais, a Diretoria de Tecnologia reitera que a não observância das diretrizes supracitadas poderá ensejar a interrupção compulsória da sessão, com consequente necessidade de reautenticação multifatorial junto ao provedor de identidade federado.</p>
+      </section>
+    </main>
+
+    <!-- COLUNA LATERAL DE DISTRAÇÕES -->
+    <aside>
+      <div class="promo">
+        <strong>OFERTA RELÂMPAGO ⏰</strong>
+        Crédito pré-aprovado com taxas a partir de 1,99% a.m.* <br>*sujeito a análise
+        <br><button class="btn btn-laranja" style="margin-top:5px">Quero Contratar</button>
+      </div>
+      <div class="box">
+        <h4>Cotações em tempo real</h4>
+        Dólar <span style="color:green">▲ 5,42</span><br>
+        Euro <span style="color:red">▼ 5,88</span><br>
+        Bitcoin <span style="color:green">▲ 312.450</span><br>
+        Ibovespa <span style="color:red">▼ 127.880</span>
+      </div>
+      <div class="promo" style="border-color:#7fb;color:#268">
+        <strong class="blink">⚡ Você foi selecionado!</strong>
+        Baixe agora nosso app e concorra a prêmios.
+        <br><button class="btn btn-verde" style="margin-top:5px">Baixar App</button>
+      </div>
+      <div class="box">
+        <h4>Newsletter</h4>
+        <input type="text" placeholder="Seu e-mail" style="width:100%;font-size:10px;padding:4px">
+        <button class="btn btn-cinza" style="margin-top:4px">Assinar</button>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="cols">
+      <div><h5>Institucional</h5><a href="#">Quem somos</a><a href="#">Governança</a><a href="#">Sustentabilidade</a><a href="#">Relações com investidores</a><a href="#">Código de conduta</a></div>
+      <div><h5>Produtos</h5><a href="#">Contas</a><a href="#">Cartões</a><a href="#">Empréstimos</a><a href="#">Financiamentos</a><a href="#">Previdência</a></div>
+      <div><h5>Atendimento</h5><a href="#">Central 0800</a><a href="#">SAC</a><a href="#">Ouvidoria</a><a href="#">Agências</a><a href="#">Chat</a></div>
+      <div><h5>Segurança</h5><a href="#">Privacidade</a><a href="#">Cookies</a><a href="#">Phishing</a><a href="#">Certificados</a><a href="#">LGPD</a></div>
+      <div><h5>Legal</h5><a href="#">Termos</a><a href="#">Tarifas</a><a href="#">Contratos</a><a href="#">Regulamentos</a><a href="#">Mapa do site</a></div>
+    </div>
+  </footer>
+
+  <!-- Barra de cookies fixa cobrindo o conteúdo -->
+  <div class="cookie" id="cookieBar">
+    <span>Utilizamos cookies e tecnologias de rastreamento para otimizar sua experiência. Ao continuar navegando, você concorda com nossa Política de Privacidade e Cookies. <a href="#">Saiba mais</a></span>
+    <button class="btn btn-cinza" onclick="document.getElementById('cookieBar').style.display='none'">Aceitar todos</button>
+  </div>
+
+</body>
+</html>

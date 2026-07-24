@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acessibilidade Cognitiva — Comparativo de Interfaces</title>
+<style>
+  :root{
+    --bg:#0f172a; --surface:#1e293b; --surface2:#334155;
+    --ink:#f8fafc; --muted:#94a3b8; --accent:#3b82f6; --accent2:#8b5cf6;
+    --border:rgba(255,255,255,.1);
+    --bad:#f87171; --bad-bg:rgba(248,113,113,.12);
+    --good:#34d399; --good-bg:rgba(52,211,153,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);line-height:1.6;
+    font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+    padding:0 20px 70px;}
+  .wrap{max-width:860px;margin:0 auto;}
+  header{text-align:center;padding:60px 0 30px;
+    background:radial-gradient(circle at 50% 0%, rgba(59,130,246,.15) 0%, transparent 60%);}
+  .eyebrow{color:var(--accent);font-weight:700;font-size:.8rem;
+    letter-spacing:.15em;text-transform:uppercase;}
+  h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:12px 0 14px;}
+  .intro{color:var(--muted);max-width:640px;margin:0 auto;font-size:1.05rem;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:22px;margin-top:40px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:26px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;}
+  .card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,.4);}
+  .tag{align-self:flex-start;font-size:.75rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.05em;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+  .tag.bad{color:var(--bad);background:var(--bad-bg);}
+  .tag.good{color:var(--good);background:var(--good-bg);}
+  .card h2{font-size:1.3rem;margin-bottom:8px;}
+  .card p{color:var(--muted);flex-grow:1;margin-bottom:20px;font-size:.97rem;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    text-decoration:none;font-weight:600;padding:12px 20px;border-radius:10px;
+    color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));
+    transition:opacity .2s;}
+  .btn:hover{opacity:.9;}
+  .note{margin-top:40px;background:var(--surface);border:1px solid var(--border);
+    border-left:4px solid var(--accent);border-radius:0 12px 12px 0;
+    padding:18px 22px;color:var(--muted);font-size:.95rem;}
+  .note strong{color:var(--ink);}
+  .back{display:inline-block;margin-top:36px;color:var(--muted);text-decoration:none;
+    font-size:.92rem;}
+  .back:hover{color:var(--accent);}
+  footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:50px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Projeto de TCC · Análise e Desenvolvimento de Sistemas</p>
+    <h1>Acessibilidade Cognitiva</h1>
+    <p class="intro">Um comparativo prático entre duas versões da mesma tela de login: uma cheia de barreiras cognitivas e outra redesenhada para ser clara, simples e apoiada por recursos de leitura assistida por IA.</p>
+  </header>
+
+  <section class="cards" aria-label="Versões da interface">
+    <article class="card">
+      <span class="tag bad">Antes · com barreiras</span>
+      <h2>Interface com problemas</h2>
+      <p>Linguagem técnica e burocrática, títulos confusos, excesso de informação e rótulos difíceis de entender. Representa como muitas telas afastam pessoas com dificuldades cognitivas.</p>
+      <a class="btn" href="tela_a_ruim.html">Ver a tela com barreiras</a>
+    </article>
+
+    <article class="card">
+      <span class="tag good">Depois · acessível</span>
+      <h2>Interface acessível</h2>
+      <p>Linguagem simples e direta, um passo de cada vez, tipografia legível e leitura em voz apoiada por IA. A mesma tarefa, muito mais fácil de concluir.</p>
+      <a class="btn" href="tela_a_boa.html">Ver a tela acessível</a>
+    </article>
+  </section>
+
+  <div class="note">
+    <strong>Como comparar:</strong> abra as duas telas e observe as diferenças de vocabulário, hierarquia visual, quantidade de passos e clareza das instruções. A proposta é mostrar que acessibilidade cognitiva é, na prática, decisão de design.
+  </div>
+
+  <a class="back" href="../index.html">← Voltar ao portfólio</a>
+
+  <footer>José Augusto · Acessibilidade Cognitiva · Protótipos do TCC</footer>
+</div>
+</body>
+</html>
